@@ -9,8 +9,18 @@
   },
   "type": "module",
   "dependencies": {
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@types/death": "^1",
+    "@types/node": "^24.7.2",
+    "axios": "^1.12.2",
+    "commander": "^14.0.1",
+    "cross-env": "^10.1.0",
+    "death": "^1.1.0",
+    "pino": "^10.0.0",
+    "pino-pretty": "^13.1.2",
+    "ts-node": "^10.9.2"
   },
   "scripts": {
     "start": "cross-env LOG_LEVEL=debug node --loader ts-node/esm src/cli.ts",
