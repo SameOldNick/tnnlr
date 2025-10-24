@@ -1,0 +1,19 @@
+{
+  "name": "tnnlr",
+  "description": "Tunneling client for exposing local servers to the internet.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sameoldnick/tnnlr.git"
+  },
+  "type": "module",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "start": "cross-env LOG_LEVEL=debug node --loader ts-node/esm src/cli.ts",
+    "build": "tsc"
+  },
+  "packageManager": "yarn@4.10.3"
+}
