@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from 'commander';
 import tnnlr from './lib/tnnlr.js';
 import logger from './logger.js';

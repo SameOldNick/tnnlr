@@ -8,6 +8,13 @@
     "url": "https://github.com/sameoldnick/tnnlr.git"
   },
   "type": "module",
+  "main": "./dist/cli.js",
+  "bin": {
+    "tnnlr": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "typescript": "^5.9.3"
   },
@@ -24,7 +31,8 @@
   },
   "scripts": {
     "start": "cross-env LOG_LEVEL=debug node --loader ts-node/esm src/cli.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "yarn build"
   },
   "packageManager": "yarn@4.10.3"
 }
