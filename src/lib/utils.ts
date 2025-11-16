@@ -1,5 +1,3 @@
-import logger from "../logger.js";
-
 export function isArbitraryObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -16,22 +14,29 @@ export function isErrnoException(error: unknown): error is NodeJS.ErrnoException
 export const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export const retryAsync = async <T>(
-  fn: () => Promise<T>,
-  retries: number,
-  delayMs: number
+  fn: (attempt: number) => Promise<T>,
+  retriesOrWhen: number | ((error: unknown, attempt: number) => boolean),
+  delayMs: number | ((attempt: number) => number)
 ): Promise<T> => {
   let attempt = 0;
-  while (attempt <= retries) {
+
+  const when = typeof retriesOrWhen === 'number'
+    ? (err: unknown, attempt: number) => attempt <= retriesOrWhen
+    : retriesOrWhen;
+
+  while (true) {
     try {
-      return await fn();
+      return await fn(attempt);
     } catch (err) {
       attempt++;
-      if (attempt > retries) {
+
+      if (!when(err, attempt)) {
         throw err;
       }
-      logger.warn(`Attempt ${attempt} failed. Retrying in ${delayMs}ms...`);
-      await sleep(delayMs);
+
+      const delay = typeof delayMs === 'number' ? delayMs : delayMs(attempt);
+
+      await sleep(delay);
     }
   }
-  throw new Error('Unreachable code');
 }
