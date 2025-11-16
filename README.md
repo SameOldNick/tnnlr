@@ -1,2 +1,3 @@
 # tnnlr
-Tunneling client for exposing local servers to the internet.
+
+**From ``127.0.0.1`` to Everyone**
