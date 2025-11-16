@@ -49,10 +49,20 @@ const tnnlr = async (options: TnnlrOptions) => {
   // Placeholder for the tunneling logic
   logger.info(`Tunneling to ${options.apiUrl}:${options.port}`);
 
-  const tunnelEndpoint = await retryAsync(() => getTunnelEndpoint({
-    url: options.apiUrl,
-    apiKey: options.apiKey,
-  }), options.retry || 1, options.retryDelay ? options.retryDelay * 1000 : 5000);
+  const tunnelEndpoint = await retryAsync(
+    (attempt) => getTunnelEndpoint({
+      url: options.apiUrl,
+      apiKey: options.apiKey,
+    }),
+    options.retry || 1,
+    (attempt) => {
+      const delay = options.retryDelay ? options.retryDelay * 1000 : 5000;
+
+      logger.warn(`Attempt ${attempt} failed. Retrying in ${delay}ms...`);
+
+      return delay;
+    }
+  );
 
   logger.debug(`Obtained tunnel endpoint: ${JSON.stringify(tunnelEndpoint)}`);
 
