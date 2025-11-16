@@ -9,9 +9,7 @@
   },
   "type": "module",
   "main": "./dist/cli.js",
-  "bin": {
-    "tnnlr": "./dist/cli.js"
-  },
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
