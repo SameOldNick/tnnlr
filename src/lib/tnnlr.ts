@@ -2,7 +2,7 @@ import ON_DEATH from 'death';
 import { getTunnelEndpoint } from './endpoint.js';
 import logger from '../logger.js';
 import { createTunnel, type CreateTunnelOpts } from './tunnel.js';
-import { sleep } from './utils.js';
+import { retryAsync, sleep } from './utils.js';
 
 type TnnlrOptions = {
   port: number;
@@ -14,23 +14,6 @@ type TnnlrOptions = {
   localHost?: string;
 
   onEndpoint?: (endpoint: { url: string; port: number, secretKey: string }) => void;
-}
-
-const retryAsync = async <T>(fn: () => Promise<T>, retries: number, delayMs: number): Promise<T> => {
-  let attempt = 0;
-  while (attempt <= retries) {
-    try {
-      return await fn();
-    } catch (err) {
-      attempt++;
-      if (attempt > retries) {
-        throw err;
-      }
-      logger.warn(`Attempt ${attempt} failed. Retrying in ${delayMs}ms...`);
-      await sleep(delayMs);
-    }
-  }
-  throw new Error('Unreachable code');
 }
 
 /**
