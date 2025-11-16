@@ -1,7 +1,7 @@
 {
   "name": "tnnlr",
   "description": "Tunneling client for exposing local servers to the internet.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "repository": {
     "type": "git",
