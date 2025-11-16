@@ -676,6 +676,8 @@ __metadata:
     pino-pretty: "npm:^13.1.2"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.9.3"
+  bin:
+    tnnlr: ./dist/cli.js
   languageName: unknown
   linkType: soft
 
