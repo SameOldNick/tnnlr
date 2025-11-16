@@ -29,6 +29,8 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: yarn install --immutable
       - run: npm ci
       - run: npm publish
         env:
