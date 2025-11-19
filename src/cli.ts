@@ -5,12 +5,14 @@ import tnnlr from './lib/tnnlr.js';
 import logger from './logger.js';
 import ON_DEATH from 'death';
 
+import packageMeta from '../package.json' with { type: 'json' };
+
 const program = new Command();
 
 program
   .name('tnnlr')
   .description('CLI for tunneling service')
-  .version('0.1.0');
+  .version(packageMeta.version);
 
 program
   .option('-p, --port <port>', 'Port to tunnel to')
