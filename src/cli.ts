@@ -16,8 +16,8 @@ program
 
 program
   .option('-p, --port <port>', 'Port to tunnel to')
-  .option('--url <url>', 'URL to use to get tunnel endpoint')
-  .option('--api-key <apiKey>', 'API key for authentication')
+  .option('--url <url>', 'URL to use to get tunnel endpoint', 'https://api.tnnlr.net/v1/tunnels')
+  .option('--api-key <apiKey>', 'API key for authentication', process.env.TNNLR_API_KEY)
   .option('--local-host <host>', 'Local host to bind to', 'localhost')
   .option('--url-file <path>', 'Path to save the tunnel URL')
   .option('--max-connections <number>', 'Maximum number of concurrent connections', (value) => parseInt(value, 10), 10)
@@ -29,7 +29,7 @@ program.parse();
 const opts = {
   port: program.getOptionValue('port'),
   apiUrl: program.getOptionValue('url'),
-  apiKey: program.getOptionValue('apiKey') || process.env.TNNLR_API_KEY,
+  apiKey: program.getOptionValue('apiKey'),
   urlFile: program.getOptionValue('urlFile'),
   localHost: program.getOptionValue('localHost'),
   retry: program.getOptionValue('retry'),
