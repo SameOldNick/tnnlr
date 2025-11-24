@@ -16,7 +16,7 @@ program
 
 program
   .option('-p, --port <port>', 'Port to tunnel to')
-  .option('--url <url>', 'URL to use to get tunnel endpoint', 'https://api.tnnlr.net/v1/tunnels')
+  .option('--url <url>', 'Base URL for the API', 'https://api.tnnlr.io')
   .option('--api-key <apiKey>', 'API key for authentication', process.env.TNNLR_API_KEY)
   .option('--local-host <host>', 'Local host to bind to', 'localhost')
   .option('--url-file <path>', 'Path to save the tunnel URL')
