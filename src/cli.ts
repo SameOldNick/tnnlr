@@ -37,6 +37,10 @@ const opts = {
   maxConnections: program.getOptionValue('maxConnections'),
 };
 
+if (!opts.apiKey) {
+  logger.warn('Warning: No API key provided. You may encounter rate limiting or access issues.');
+}
+
 if (!opts.port) {
   logger.error('Error: Port is required.');
   process.exit(1);
