@@ -70,7 +70,7 @@ const tnnlr = async (options: TnnlrOptions) => {
     options.onEndpoint({
       url: tunnelEndpoint.url,
       port: tunnelEndpoint.port,
-      secretKey: tunnelEndpoint.secret_key,
+      secretKey: tunnelEndpoint.secret,
     });
   }
 
@@ -84,7 +84,7 @@ const tnnlr = async (options: TnnlrOptions) => {
       remotePort: tunnelEndpoint.port,
       localHost: options.localHost || 'localhost',
       localPort: options.port,
-      secretKey: tunnelEndpoint.secret_key,
+      secretKey: tunnelEndpoint.secret,
       onRequest: (req) => {
         logger.info(`Received request: ${req.method} ${req.path}`);
       },

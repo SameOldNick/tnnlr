@@ -6,7 +6,7 @@ export type TunnelEndpoint = {
   url: string;
   host?: string;
   port: number;
-  secret_key: string;
+  secret: string;
 };
 
 type GetTunnelEndpointOpts = {
@@ -18,9 +18,9 @@ type GetTunnelEndpointResponse = {
   id: string;
   host?: string;
   port: number;
-  secret_key: string;
   max_conn_count: number;
   url: string;
+  secret: string;
 };
 
 export async function getTunnelEndpoint({
@@ -45,7 +45,7 @@ export async function getTunnelEndpoint({
       url: response.data.url,
       host: response.data.host,
       port: response.data.port,
-      secret_key: response.data.secret_key,
+      secret: response.data.secret,
     };
   } catch (error) {
     logger.error('Error fetching tunnel endpoint:');
