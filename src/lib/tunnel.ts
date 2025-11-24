@@ -79,8 +79,9 @@ function connectLocal({
   };
 }
 
-async function authenticateRemote(socket: net.Socket, secretKey: string | undefined, timeoutMs = 5000): Promise<void> {
-  if (!secretKey) return;
+async function authenticateRemote(socket: net.Socket, secretKey: string, timeoutMs = 5000): Promise<void> {
+  if (!secretKey)
+    throw new Error('No secret key provided for authentication');
 
   return new Promise((resolve, reject) => {
     let timer = setTimeout(() => {
@@ -228,14 +229,20 @@ export async function createTunnel({
     async () => {
       logger.info(`Connected to tunnel at ${remoteHost}:${remotePort}`);
 
-      try {
-        await authenticateRemote(remoteSocket, secretKey, authTimeoutMs);
-        logger.info('Remote authentication succeeded');
-      } catch (err) {
-        logger.error('Remote authentication failed');
-        emitter.emit('error', err);
-        remoteSocket.end();
-        return;
+      if (secretKey) {
+        logger.info('Starting remote authentication');
+
+        try {
+          await authenticateRemote(remoteSocket, secretKey, authTimeoutMs);
+          logger.info('Remote authentication succeeded');
+        } catch (err) {
+          logger.error('Remote authentication failed');
+          emitter.emit('error', err);
+          remoteSocket.end();
+          return;
+        }
+      } else {
+        logger.info('No secret key provided, skipping authentication');
       }
 
       //remoteSocket.pause();
